@@ -118,15 +118,10 @@ class DashboardXhrElectricityConsumption(View):
 
             if form.cleaned_data.get('phases'):
                 # 'or 0' is required due to empty data.
-                data['phases_delivered']['l1'].append(float(current.phase_currently_delivered_l1 or 0) * 1000)
-                data['phases_delivered']['l2'].append(float(current.phase_currently_delivered_l2 or 0) * 1000)
-                data['phases_delivered']['l3'].append(float(current.phase_currently_delivered_l3 or 0) * 1000)
+                data['phases_delivered']['l1'].append(float(current.phase_currently_delivered_l1 or (current.phase_currently_returned_l1 * -1)) * 1000)
+                data['phases_delivered']['l2'].append(float(current.phase_currently_delivered_l2 or (current.phase_currently_returned_l2 * -1)) * 1000)
+                data['phases_delivered']['l3'].append(float(current.phase_currently_delivered_l3 or (current.phase_currently_returned_l3 * -1)) * 1000)
 
-                if form.cleaned_data.get('returned'):
-                    # 'or 0' is required due to backwards compatibility.
-                    data['phases_returned']['l1'].append(float(current.phase_currently_returned_l1 or 0) * 1000)
-                    data['phases_returned']['l2'].append(float(current.phase_currently_returned_l2 or 0) * 1000)
-                    data['phases_returned']['l3'].append(float(current.phase_currently_returned_l3 or 0) * 1000)
 
             data['latest_delta_id'] = current.id
 
