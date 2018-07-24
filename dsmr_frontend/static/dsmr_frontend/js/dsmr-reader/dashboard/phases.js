@@ -62,7 +62,6 @@ $(document).ready(function(){
                 name: 'Watt (L1+)',
                 type: 'line',
                 areaStyle: {},
-                stack: 'delivered',
                 data: null
             },
             {
@@ -70,7 +69,6 @@ $(document).ready(function(){
                 name: 'Watt (L2+)',
                 type: 'line',
                 areaStyle: {},
-                stack: 'delivered',
                 data: null
             },
             {
@@ -78,7 +76,6 @@ $(document).ready(function(){
                 name: 'Watt (L3+)',
                 type: 'line',
                 areaStyle: {},
-                stack: 'delivered',
                 data: null
             }
         ]
