@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from solo.models import SingletonModel
+from datetime import time
+from django.utils import timezone
 
 
 class DayStatistics(models.Model):
@@ -264,6 +266,22 @@ class ElectricityStatistics(SingletonModel):
         max_digits=9, decimal_places=3, null=True, blank=True, default=None,
         verbose_name=_('Lowest day return 2 (in Wh)')
     )
+
+    def clear(self):
+        """ Clear the data. """
+        data = self.__dict__
+        now = timezone.localtime(timezone.now())
+        for key in data.keys():
+            if key.endswith('_value'):
+                data[key] = 0
+            else:
+#                data[key] = 0
+                data[key] =  now.date()
+#                data[key] = "2000-01-01"
+#                data[key] = "0000-00-00"
+#                setattr(data[key], "0000-00-00")
+
+        self.save()
 
     def export(self):
         """ Converts the data in to ready to use format. """
